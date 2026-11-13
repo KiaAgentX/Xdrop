@@ -1,15 +1,12 @@
 [build]
 builder = "docker"
+# Dockerfile در پوشه‌ی backend است؛ بدون این مسیر، Railway از ریشه‌ی ریپو
+# دنبال Dockerfile می‌گردد، پیدا نمی‌کند و بیلد در همان «Build image» fail می‌شود.
+dockerfilePath = "backend/Dockerfile"
+dockerContext = "backend"
 
 [deploy]
 startCommand = "python run.py"
-healthcheckPath = "/healthz"
-healthcheckTimeout = 100
-restartPolicyType = "on_failure"
-restartPolicyMaxRetries = 10
-
-[[deploy.services]]
-name = "dropagentx-web"
 healthcheckPath = "/healthz"
 healthcheckTimeout = 100
 restartPolicyType = "on_failure"
