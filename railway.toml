@@ -1,13 +1,17 @@
 [build]
-builder = "docker"
-# Dockerfile در پوشه‌ی backend است؛ بدون این مسیر، Railway از ریشه‌ی ریپو
-# دنبال Dockerfile می‌گردد، پیدا نمی‌کند و بیلد در همان «Build image» fail می‌شود.
-dockerfilePath = "backend/Dockerfile"
-dockerContext = "backend"
+# مقدارهای معتبر Railway: "NIXPACKS" | "DOCKERFILE" | "RAILPACK" | "HEROKU".
+# قبلاً اینجا "docker" بود که نامعتبر است؛ Railway پیش از شروع بیلد رد می‌کرد و
+# نتیجه‌اش شکست ۳-۴ ثانیه‌ای «Build image» بدون هیچ لاگ بیلد بود.
+builder = "DOCKERFILE"
+# Dockerfile در ریشه‌ی مخزن است (نسخهٔ backend/Dockerfile مخصوص docker-compose
+# لوکال می‌ماند). کلید dockerContext در کانفیگ Railway وجود ندارد؛ context بیلد
+# همیشه ریشهٔ سورس است — برای همین COPYهای فایل ریشه با پیشوند backend/ نوشته
+# شده‌اند و همان کد قبلی را بیلد می‌کنند.
+dockerfilePath = "Dockerfile"
 
 [deploy]
 startCommand = "python run.py"
 healthcheckPath = "/healthz"
-healthcheckTimeout = 100
-restartPolicyType = "on_failure"
+healthcheckTimeout = 180
+restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10

@@ -1,45 +1,52 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-venv/
-.venv/
-env/
-pip-log.txt
-pip-delete-this-directory.txt
+# ─────────────────────────────────────────────────────────────────────────────
+# Build context = ریشهٔ مخزن (Dockerfile ریشه برای Railway).
+# نکته: در .dockerignore الگوی بدون «/» فقط سطح ریشه را می‌گیرد، بنابراین برای
+# معادل‌سازیِ فیلترهای قبلیِ backend/.dockerignore از «**/» استفاده شده است.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Git / CI
+.git/
+.github/
+
+# Python: کش‌ها و محیط‌های مجازی
+**/__pycache__/
+**/*.py[cod]
+**/*.pyo
+**/.pytest_cache/
+**/venv/
+**/.venv/
+**/env/
 .tox/
 .coverage
-*.cover
-.pytest_cache/
+**/*.cover
 
-# Data
-data/
-uploads/
-*.db
-*.db-shm
-*.db-wal
+# وضعیت رانتایم و اسرار — هرگز وارد ایمیج نشود
+**/data/
+**/uploads/
+**/backups/
+**/*.db
+**/*.db-shm
+**/*.db-wal
+**/*.sqlite3
+**/.env
+**/.env.*
+!**/.env.example
+**/logs/
+**/*.log
 
-# Environment
-.env
-.env.local
-.env.*.local
+# فقط برای توسعه — در ایمیج رانتایم لازم نیست (معادل backend/.dockerignore)
+**/tests/
+**/*_test.py
+**/smoke_test.py
+**/seed_live.py
+backend/docs/
+**/*.md
 
-# Git
-.git/
-.gitignore
-
-# OS
-.DS_Store
-Thumbs.db
-
-# IDE
+# فرانت‌اند/ابزار
+**/node_modules/
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# Logs
-logs/
-*.log
+.DS_Store
+Thumbs.db
